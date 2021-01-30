@@ -1,5 +1,5 @@
-Which of these songs was a Top 10 hit for the rock band The Police?
-    A: 'Radio Ga-Ga'
-    B: 'Ob-la-di, Ob-la-da'
-    C: 'De Do Do Do, De Da Da Da'
-    D: 'In-a-Gadda-Da-Vida'
+What is varicella?
+    A: a fancy pasta
+    B: a type of opera
+    C: the chicken pox virus
+    D: ancient Roman poetry

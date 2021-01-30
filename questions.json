@@ -1,4 +1,4 @@
-module.exports = questions = [{
+{"questions": [{
     "question": "A flashing red traffic light signifies that a driver should do what?",
     "A": "stop",
     "B": "speed up",
@@ -3827,4 +3827,4 @@ module.exports = questions = [{
     "C": "electric guitar",
     "D": "baby",
     "answer": "C"
-  }]
+  }]}
