@@ -9,12 +9,17 @@ module.exports = {
         var keys = Object.keys(players)
         for(i=0; i<keys.length; i++){
             var k = keys[i];
-            if(players[k].ready){
-                playerList = playerList + "\n:green_circle:  " + players[k].name
-                ready ++
-            } else if (!players[k].ready) {
-                playerList = playerList + "\n:o:  " + players[k].name
+            if(gamefile.status == "pregame"){
+                if(players[k].status == "ready"){
+                    playerList = playerList + "\n:green_circle:  " + players[k].name
+                    ready ++
+                } else if (players[k].status == "unready") {
+                    playerList = playerList + "\n:o:  " + players[k].name
+                }
+            } else {
+                playerList = playerList + players[k].name
             }
+            
         }
         gameEmbed
             .setAuthor(gamefile.hostname + " is hosting a trivia game!", client.guilds.resolve(message.guild.id).members.resolve(gamefile.hostid).user.avatarURL())
@@ -29,12 +34,17 @@ module.exports = {
             "\ntype `.forfeit` or `.quit` to quit the game" +
             "\ntype `.scores` to see the current scores for all players" +
             "\n**Host Only**" +
-            "\ntype `.cancel` to cancel this game" +
+            "\ntype `.cancel` to cancel the game without saving" +
             "\ntype `.start` to start the game" +
-            "\ntype `.next` for the next question" +
-            "\ntype `.done` to end the game")
+            "\ntype `.next` or react with :arrow_forward: for the next question" +
+            "\ntype `.done` to save and end the game")
         if(playerList !== ""){
-            gameEmbed.addField("Players (" + ready + "/" + Object.keys(players).length + " Ready)", playerList)
+            if(gamefile.status == "pregame"){
+                gameEmbed.addField("Players (" + ready + "/" + Object.keys(players).length + " Ready)", playerList)
+            } else {
+                gameEmbed.addField("Players", playerList)
+            }
+            
         }
         try{
             message.channel.messages.fetch(gamefile.message)

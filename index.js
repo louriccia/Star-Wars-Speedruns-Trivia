@@ -32,3 +32,5 @@ client.on('message', message => {
 })
 
 client.login(token);
+//invite link
+//https://discord.com/oauth2/authorize?client_id=803797167617605652&permissions=268512320&scope=bot
