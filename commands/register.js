@@ -2,6 +2,8 @@ module.exports = {
 	name: 'register',
 	aliases: [],
 	description: 'registers the current channel as the trivia game channel',
+	stage: ['finished', undefined],
+	hostonly: false,
 	execute(message, args) {
 		const fs = require('fs');
 		let trivia_config = JSON.parse(fs.readFileSync("trivia_config.json", "utf8"));

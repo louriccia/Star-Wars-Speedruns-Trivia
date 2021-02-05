@@ -2,9 +2,10 @@ module.exports = {
     name: 'unjoin',
     aliases: ['leave'],
     description: '',
+    stage: ['pregame'],
+    hostonly: false,
     execute(message, args, client) {
       const fs = require('fs');
-      const Discord = require('discord.js');
       var tools = require('./../tools.js');
       let trivia_game = JSON.parse(fs.readFileSync("trivia_game.json", "utf8"));
       let trivia_config = JSON.parse(fs.readFileSync("trivia_config.json", "utf8"));

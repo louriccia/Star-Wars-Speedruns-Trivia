@@ -2,12 +2,15 @@ module.exports = {
 	name: 'start',
 	aliases: [],
 	description: 'starts the game',
+	stage: ['pregame'],
+	hostonly: true,
 	execute(message, args, client) {
 		const fs = require('fs');
 		const Discord = require('discord.js');
 		var tools = require('./../tools.js');
 		let trivia_game = JSON.parse(fs.readFileSync("trivia_game.json", "utf8"));
 		let trivia_config = JSON.parse(fs.readFileSync("trivia_config.json", "utf8"));
+		let trivia_questions = JSON.parse(fs.readFileSync("trivia_questions.json", "utf8"));
 		var players = trivia_game.players
         var unready = []
 		if(players !== undefined){
@@ -24,12 +27,15 @@ module.exports = {
 						message.channel.send("Not all players readied. The folowing players have not used the `.ready` command: \n" + unready.join(", "))
 					} else if(Object.keys(players).length < trivia_config.min_players){
 						message.channel.send("Unable to start game. Not enough players have joined.")
+					} else if(trivia_questions.questions.length < 1){
+						message.channel.send("Unable to start game. No question categories selected.")
 					} else { //start game
 						for(i=0; i<keys.length; i++){
 							var k = keys[i];
 							players[k].status = "playing"
 						}
 						trivia_game.status = "ingame"
+						trivia_game.num_questions = 0
 						fs.writeFile("trivia_game.json", JSON.stringify(trivia_game), (err) => {
 							if (err) console.error(err)
 						});
@@ -38,6 +44,7 @@ module.exports = {
 						if(role !== undefined){
 							triviarole = "<@&" + role.id + ">"
 						}
+						tools.triviaEmbed(client, message, trivia_game)
 						message.channel.send( triviarole + " The host has started the game. Get ready for the first question in 10 seconds!") //ping the players in this message
 						setTimeout(function(){ 
 							message.channel.send("5...")

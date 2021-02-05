@@ -1,5 +1,0 @@
-If a piece of music is in 'common time' how many quarter notes are there per measure?
-    A: one
-    B: four
-    C: five
-    D: ten

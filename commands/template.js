@@ -2,6 +2,7 @@ module.exports = {
 	name: '',
 	aliases: [],
 	description: '',
+	stage: [],
 	execute(message, args, client) {
 		const fs = require('fs');
 		const Discord = require('discord.js');
