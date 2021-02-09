@@ -11,12 +11,13 @@ module.exports = {
 		let trivia_config = JSON.parse(fs.readFileSync("trivia_config.json", "utf8"));
 		if(message.author.id == trivia_game.hostid || (args[0] == "-f" && (message.member.roles.cache.some(role => trivia_config.roles.bot_commander == role.name)|| message.member.hasPermission(['ADMINISTRATOR', 'MANAGE_GUILD'])))){
 			trivia_game.status = "finished"
-			//reset game file
-			fs.writeFile("trivia_game.json", JSON.stringify("{}"), (err) => {
-				if (err) console.error(err)
-			});
 			//save game to save folder
 			fs.writeFile("saves/" + trivia_game.date.replace(/:/g, '.') + "_" + trivia_game.name.replace(/[|&;$%@"<>()+,]/g, "") +".json", JSON.stringify(trivia_game), (err) => {
+				if (err) console.error(err)
+			});
+			//reset game file
+			trivia_game = {}
+			fs.writeFile("trivia_game.json", JSON.stringify(trivia_game), (err) => {
 				if (err) console.error(err)
 			});
 			//prepare final score embed
